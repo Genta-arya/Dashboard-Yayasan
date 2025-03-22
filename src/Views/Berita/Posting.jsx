@@ -13,24 +13,21 @@ const Posting = () => {
   };
 
   const handlePostClick = () => {
-    // Sanitasi konten sebelum menampilkan di bawah
-    const sanitizedContent = DOMPurify.sanitize(editorContent);
+    // Sanitasi konten
+    let sanitizedContent = DOMPurify.sanitize(editorContent);
+
+    // Menghapus watermark Froala jika ada
+    const div = document.createElement('div');
+    div.innerHTML = sanitizedContent;
+    const watermark = div.querySelector('a[href*="froala.com"]');
+    if (watermark) {
+      watermark.parentNode.removeChild(watermark); // Menghapus watermark
+    }
+    sanitizedContent = div.innerHTML;
+
     setPreviewContent(sanitizedContent); // Menyimpan hasil sanitasi untuk preview
     console.log("Posting content:", sanitizedContent);
   };
-
-  // Fungsi untuk menghapus watermark Froala setelah editor dimuat
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const watermark = document.querySelector('a[href*="froala.com"]');
-      if (watermark) {
-        watermark.style.display = "none";
-        clearInterval(interval);
-      }
-    }, 100); // Cek setiap 100ms untuk menemukan elemen watermark
-
-    return () => clearInterval(interval); // Bersihkan interval saat komponen unmount
-  }, []);
 
   return (
     <div>
