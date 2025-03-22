@@ -35,6 +35,19 @@ const Posting = () => {
           <div dangerouslySetInnerHTML={{ __html: previewContent }} />
         </div>
       )}
+
+      {/* Hide Froala watermark */}
+      <style>
+        {`
+          /* Menyembunyikan watermark dari Froala */
+          .fr-wrapper .fr-toolbar .fr-btn[data-cmd="html"] {
+            display: none !important;
+          }
+          .fr-wrapper .fr-view a[href*="froala.com"] {
+            display: none !important;
+          }
+        `}
+      </style>
     </div>
   );
 };
