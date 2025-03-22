@@ -21,6 +21,10 @@
   display: none !important;
 }
 
+/* Menyembunyikan watermark Froala */
+a[href*="froala.com"][target="_blank"] {
+  display: none !important;
+}
 
 @layer base {
   :root {
