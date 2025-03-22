@@ -72,7 +72,7 @@ const Posting = () => {
             "undo",
             "redo",
             "removeFormat",
-            // inserttabel
+            "insertImage",
             "insertTable",
             
             // end insert tabel
@@ -93,12 +93,12 @@ const Posting = () => {
             "froalaEditor.blur": function () {
               console.log("Editor blurred");
             },
-            'image.beforeUpload': function (files) {
-              return false; // Mencegah upload gambar
-            },
-            'image.inserted': function ($img, response) {
-              $img.remove(); // Menghapus gambar yang sudah dimasukkan
-            },
+            // 'image.beforeUpload': function (files) {
+            //   return false; // Mencegah upload gambar
+            // },
+            // 'image.inserted': function ($img, response) {
+            //   $img.remove(); // Menghapus gambar yang sudah dimasukkan
+            // },
           
             "froalaEditor.image.inserted": function (e, editor, $img) {
               // Menghapus gambar yang baru disisipkan
