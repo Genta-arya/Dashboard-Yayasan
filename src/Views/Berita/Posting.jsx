@@ -16,13 +16,24 @@ const Posting = () => {
     // Sanitasi konten
     let sanitizedContent = DOMPurify.sanitize(editorContent);
 
-    // Menghapus watermark Froala jika ada
-    const div = document.createElement('div');
+    // Menghapus watermark Froala dan elemen "Powered by" jika ada
+    const div = document.createElement("div");
     div.innerHTML = sanitizedContent;
+
+    // Menghapus watermark Froala
     const watermark = div.querySelector('a[href*="froala.com"]');
     if (watermark) {
       watermark.parentNode.removeChild(watermark); // Menghapus watermark
     }
+
+    // Menghapus "Powered by Froala Editor" jika ditemukan
+    const paragraphs = div.querySelectorAll("p");
+    paragraphs.forEach((paragraph) => {
+      if (paragraph.textContent.includes("Powered by Froala Editor")) {
+        paragraph.remove();
+      }
+    });
+
     sanitizedContent = div.innerHTML;
 
     setPreviewContent(sanitizedContent); // Menyimpan hasil sanitasi untuk preview
@@ -41,27 +52,35 @@ const Posting = () => {
             "italic",
             "underline",
             "insertLink",
-            "undo",
-            "redo",
             "formatOL",
             "formatUL",
-            "outdent",
-            "indent",
             "alignLeft",
             "alignCenter",
             "alignRight",
-            "formatH1",
-            "formatH2",
-            "formatH3",
-            "formatH4",
-            "formatH5",
-            "formatH6",
             "paragraphFormat",
             "paragraphStyle",
             "fontSize",
             "textColor",
             "backgroundColor",
             "markdown",
+            "specialCharacters",
+            "insertHR",
+            "selectAll",
+            "clearFormatting",
+            "print",
+            "getPDF",
+            "spellChecker",
+            "html",
+            "help",
+            "fullscreen",
+            "undo",
+            "redo",
+            "insertTable",
+            "insertHR",
+            "removeFormat",
+            "outdent",
+            "indent",
+            "insertHorizontalRule",
           ],
           events: {
             "froalaEditor.initialized": function () {
