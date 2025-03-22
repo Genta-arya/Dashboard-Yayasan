@@ -10,6 +10,10 @@ const Posting = () => {
     setEditorContent(content);
   };
 
+  const handlePostClick = () => {
+    console.log('Posting content:', editorContent);
+  };
+
   return (
     <div>
       <h2>Posting Blog</h2>
@@ -17,6 +21,7 @@ const Posting = () => {
         model={editorContent}
         onModelChange={handleModelChange}
       />
+      <button onClick={handlePostClick}>Posting</button>
     </div>
   );
 };
