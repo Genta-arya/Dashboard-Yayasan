@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins.pkgd.min.js";
 import "froala-editor/css/froala_editor.pkgd.min.css";
@@ -16,21 +16,14 @@ const Posting = () => {
     // Sanitasi konten
     let sanitizedContent = DOMPurify.sanitize(editorContent);
 
-    // Menghapus watermark Froala dan elemen "Powered by" jika ada
-    const div = document.createElement("div");
+    // Menghapus elemen "Powered by" jika ada
+    const div = document.createElement('div');
     div.innerHTML = sanitizedContent;
+    const poweredByElements = div.querySelectorAll('p');
 
-    // Menghapus watermark Froala
-    const watermark = div.querySelector('a[href*="froala.com"]');
-    if (watermark) {
-      watermark.parentNode.removeChild(watermark); // Menghapus watermark
-    }
-
-    // Menghapus "Powered by Froala Editor" jika ditemukan
-    const paragraphs = div.querySelectorAll("p");
-    paragraphs.forEach((paragraph) => {
-      if (paragraph.textContent.includes("Powered by Froala Editor")) {
-        paragraph.remove();
+    poweredByElements.forEach((element) => {
+      if (element.textContent.includes("Powered by")) {
+        element.remove(); // Menghapus elemen dengan teks "Powered by"
       }
     });
 
@@ -57,6 +50,9 @@ const Posting = () => {
             "alignLeft",
             "alignCenter",
             "alignRight",
+            "alignJustify",
+            "quote",
+           " table",
             "paragraphFormat",
             "paragraphStyle",
             "fontSize",
@@ -75,12 +71,14 @@ const Posting = () => {
             "fullscreen",
             "undo",
             "redo",
-            "insertTable",
-            "insertHR",
             "removeFormat",
+            // inserttabel
+            "insertTable",
+            
+            // end insert tabel
             "outdent",
+
             "indent",
-            "insertHorizontalRule",
           ],
           events: {
             "froalaEditor.initialized": function () {
@@ -95,7 +93,34 @@ const Posting = () => {
             "froalaEditor.blur": function () {
               console.log("Editor blurred");
             },
+            'image.beforeUpload': function (files) {
+              return false; // Mencegah upload gambar
+            },
+            'image.inserted': function ($img, response) {
+              $img.remove(); // Menghapus gambar yang sudah dimasukkan
+            },
+          
+            "froalaEditor.image.inserted": function (e, editor, $img) {
+              // Menghapus gambar yang baru disisipkan
+              $img.remove(); // Menghapus elemen gambar yang baru disisipkan
+              console.log("Inserted image removed immediately");
+            },
+            // Mencegah upload video
+            "froalaEditor.video.beforeUpload": function (e, editor, videos) {
+              e.preventDefault(); // Mencegah pengunggahan video
+              console.log("Video upload prevented");
+            },
+            "froalaEditor.video.uploaded": function (e, editor, response) {
+              // Mencegah event video setelah upload
+              e.preventDefault();
+              console.log("Video upload event prevented");
+            },
           },
+          // Menonaktifkan plugin media (gambar, video, dll.)
+          imageUpload: false,
+          imageManagerUpload: false, // Mencegah akses ke image manager
+          videoUpload: false, // Menonaktifkan pengunggahan video
+          videoManagerUpload: false, // Menonaktifkan pengunggahan video
         }}
       />
       <button
