@@ -26,6 +26,12 @@ a[href*="froala.com"][target="_blank"] {
   display: none !important;
 }
 
+/* Menyembunyikan tombol Quick Insert */
+a.fr-floating-btn {
+  display: none !important;
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
