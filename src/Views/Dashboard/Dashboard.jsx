@@ -3,11 +3,14 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import Container from "@/components/container";
 import Headers from "@/components/Headers";
+import useUserStore from "@/lib/AuthZustand";
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
+  
+  const { user } = useUserStore();
   // Data untuk chart
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"], 
@@ -53,7 +56,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Headers />
+      <Headers user={user} />
       <Container>
         <h2 className="text-xl font-bold mb-4 mt-4">Traffic Pengunjung Website</h2>
         <div className="mt-12 overflow-hidden">

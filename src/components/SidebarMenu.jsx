@@ -16,19 +16,27 @@ import {
   Pencil,
   MessageSquare,
   Image,
+  Paperclip,
+  LetterText,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 const menus = [
   { label: "Dashboard", icon: <Home />, href: "/" },
-  { label: "Posting Berita", icon: <Pencil />, href: "/posting" },
+  { label: "Berita", icon: <LetterText />, href: "/berita" },
   { label: "Profil", icon: <User />, href: "/profile" },
   { label: "Pengaturan Website", icon: <Settings />, href: "/settings" },
 ];
 const SidebarMenus = () => {
   const { pathname } = useLocation();
+  if (
+    pathname.includes("/berita/posting") ||
+    pathname.includes("/berita/edit")
+  ) {
+    return null;
+  }
 
   return (
-    <Sidebar className="group peer  w-20 hover:w-60 transition-all duration-300 ease-in-out">
+    <Sidebar className="group peer bg-white  w-20 hover:w-60 transition-all duration-300 ease-in-out">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -39,7 +47,7 @@ const SidebarMenus = () => {
                     <Link
                       to={menu.href}
                       className={`flex items-center p-2 transition-all duration-300 ease-in-out group relative ${
-                        pathname === menu.href ? "bg-green-100" : ""
+                        pathname === menu.href ? "bg-green-300" : ""
                       }`}
                     >
                       {/* Ikon tetap berada di tengah */}

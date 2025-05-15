@@ -6,6 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { responseHandler } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { ServiceLogin } from "@/Services/Auth/Auth.services";
+import { toast } from "sonner";
+import { ScaleLoader } from "react-spinners";
+import LoadgerButton from "@/components/LoadgerButton";
 
 const Authentikasi = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,16 +27,18 @@ const Authentikasi = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
+      const response = await ServiceLogin(data);
+      localStorage.setItem("token", response.data.token);
       navigate("/");
     } catch (error) {
+      responseHandler(error);
     } finally {
       setIsLoading(false);
-      responseHandler(response);
     }
   };
 
   return (
-    <div className="flex justify-center mt-24  items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center mt-24  items-center min-h-screen ">
       <Card className="md:w-full w-80  md:max-w-2xl bg-white shadow-xl">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-extrabold text-green-800 border-b-4 border-gray-500">
@@ -74,8 +80,13 @@ const Authentikasi = () => {
             <Button
               className="w-full mt-2 border hover:bg-green-800 hover:text-white transition-all"
               type="submit"
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? (
+               <LoadgerButton />
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
         </CardContent>
