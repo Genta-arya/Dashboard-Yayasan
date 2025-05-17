@@ -24,7 +24,7 @@ const menus = [
   { label: "Dashboard", icon: <Home />, href: "/" },
   { label: "Berita", icon: <LetterText />, href: "/berita" },
   { label: "Profil", icon: <User />, href: "/profile" },
-  { label: "Pengaturan Website", icon: <Settings />, href: "/settings" },
+  { label: "Pengaturan Website", icon: <Settings />, href: "/setting/website" },
 ];
 const SidebarMenus = () => {
   const { pathname } = useLocation();

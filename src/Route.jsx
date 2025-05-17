@@ -10,6 +10,10 @@ import Posting from "./Views/Berita/Posting";
 import { Toaster } from "sonner";
 import Berita from "./Views/Berita/Berita";
 import EditBerita from "./Views/Berita/EditBerita";
+import Setting from "./Views/Setting/Setting";
+
+import FormSpmb from "./Views/Setting/SPMB/Form-Spmb";
+
 
 const RouteApp = () => {
   return (
@@ -23,6 +27,8 @@ const RouteApp = () => {
           <Route path="/berita/posting" element={<Posting />} />
           <Route path="/berita/edit/:id" element={<EditBerita />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/setting/website" element={<Setting />} />
+          <Route path="/setting/spmb/:type" element={<FormSpmb />} />
         </Route>
         <Route path="*" element={<HalamanNotFound />} />
       </Routes>
@@ -30,5 +36,12 @@ const RouteApp = () => {
     </Router>
   );
 };
+
+//  { name: "Ponpes", href: "/setting/spmb/ponpes" },
+//     { name: "SMP", href: "/setting/spmb/smp" },
+//     { name: "SMA", href: "/setting/spmb/sma" },
+//     { name: "PAUD", href: "/setting/spmb/paud" },
+//     { name: "MDT", href: "/setting/spmb/mdt" },
+//     { name: "TPQ", href: "/setting/spmb/tpq" },
 
 export default RouteApp;
