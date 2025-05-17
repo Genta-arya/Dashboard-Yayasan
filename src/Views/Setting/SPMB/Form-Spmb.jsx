@@ -121,10 +121,10 @@ const FormSpmb = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-10">
+    <div className="min-h-screen  pb-10">
       <Navigation text={`SPMB - ${type}`} />
 
-      <div className="max-w-4xl mx-auto mt-6 space-y-6 p-4">
+      <div className="mx-auto mt-6 space-y-6 p-4">
         {/* Judul */}
         <div className="bg-white p-4 rounded-2xl shadow space-y-2">
           <label className="font-semibold">Judul:</label>
