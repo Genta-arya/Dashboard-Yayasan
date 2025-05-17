@@ -5,6 +5,7 @@ import { uploadProfile } from "@/Services/Uploads/Uploads.services";
 import { GetSpmb, SpmbService } from "@/Services/Spmb/Spmb.service";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import Loading from "@/components/Loading";
 
 const FormSpmb = () => {
   const [judul, setJudul] = useState("");
@@ -14,10 +15,12 @@ const FormSpmb = () => {
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [konten, setKonten] = useState("");
+  const [loading , setLoading] = useState(false);
   const { type } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await GetSpmb(type);
         const data = response?.data;
@@ -35,6 +38,8 @@ const FormSpmb = () => {
       } catch (error) {
         console.error("Gagal fetch data:", error);
         toast.error("Gagal mengambil data SPMB");
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -72,6 +77,7 @@ const FormSpmb = () => {
     if (previewUrls.length === 0) return toast.info("Thumbnail belum dipilih!");
     // if (!konten.trim()) return alert("Konten belum diisi!");
 
+    setLoading(true);
     try {
       let iconUrl = iconPreview;
       if (iconFile) {
@@ -117,8 +123,12 @@ const FormSpmb = () => {
     } catch (error) {
       console.error("Submit error:", error);
       alert("Gagal menyimpan data SPMB");
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className="min-h-screen  pb-10">
