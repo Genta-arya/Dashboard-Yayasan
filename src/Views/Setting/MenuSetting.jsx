@@ -1,4 +1,11 @@
-import { Image, FileText, School, Users, ClipboardList } from "lucide-react";
+import {
+  Image,
+  FileText,
+  School,
+  Users,
+  ClipboardList,
+  ArrowRight,
+} from "lucide-react";
 import React, { useState } from "react";
 
 const MenuSetting = () => {
@@ -118,7 +125,10 @@ const MenuSetting = () => {
               href={item.href}
               className="cursor-pointer border-b space-x-2 p-2 rounded-lg hover:bg-gray-100 transition flex justify-between items-center"
             >
-              <span>{item.name}</span>
+              <div className="flex justify-between items-center w-full">
+                <span>{item.name}</span>
+                <ArrowRight />
+              </div>
             </a>
           ))}
         </div>
@@ -161,7 +171,10 @@ const MenuSetting = () => {
               href={item.href}
               className="cursor-pointer border-b space-x-2 p-2 rounded-lg hover:bg-gray-100 transition flex justify-between items-center"
             >
-              <span>{item.name}</span>
+              <div className="flex justify-between items-center w-full">
+                <span>{item.name}</span>
+                <ArrowRight />
+              </div>
             </a>
           ))}
         </div>

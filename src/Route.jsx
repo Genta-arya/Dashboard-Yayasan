@@ -13,7 +13,7 @@ import EditBerita from "./Views/Berita/EditBerita";
 import Setting from "./Views/Setting/Setting";
 
 import FormSpmb from "./Views/Setting/SPMB/Form-Spmb";
-
+import Slider from "./Views/Setting/Slider/Slider";
 
 const RouteApp = () => {
   return (
@@ -28,6 +28,7 @@ const RouteApp = () => {
           <Route path="/berita/edit/:id" element={<EditBerita />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/setting/website" element={<Setting />} />
+          <Route path="/setting/slider" element={<Slider />} />
           <Route path="/setting/spmb/:type" element={<FormSpmb />} />
         </Route>
         <Route path="*" element={<HalamanNotFound />} />

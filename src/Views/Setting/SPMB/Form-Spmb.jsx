@@ -2,10 +2,28 @@ import React, { useEffect, useState } from "react";
 import Editor from "@/components/Editor";
 import Navigation from "@/components/Navigation";
 import { uploadProfile } from "@/Services/Uploads/Uploads.services";
-import { GetSpmb, SpmbService } from "@/Services/Spmb/Spmb.service";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import Loading from "@/components/Loading";
+import { GetSpmb, SpmbService } from "@/Services/Setting/Spmb.service";
+import useUserStore from "@/lib/AuthZustand";
+import SortableImageItem from "@/components/SortImage";
 
 const FormSpmb = () => {
   const [judul, setJudul] = useState("");
@@ -15,14 +33,29 @@ const FormSpmb = () => {
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [konten, setKonten] = useState("");
-  const [loading , setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { type } = useParams();
+  const { user } = useUserStore();
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor)
+  );
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      const oldIndex = previewUrls.findIndex((i) => i.id === active.id);
+      const newIndex = previewUrls.findIndex((i) => i.id === over?.id);
+      setPreviewUrls((items) => arrayMove(items, oldIndex, newIndex));
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await GetSpmb(type);
+        const response = await GetSpmb(type, user.id);
         const data = response?.data;
         if (!data) return;
 
@@ -30,10 +63,12 @@ const FormSpmb = () => {
         setKonten(data.konten || "");
         setIconPreview(data.url_icon || "");
         setThumbnailPreview(data.header || "");
-        const imageUrls = (data.images || []).map((img) => ({
+        const imageUrls = (data.images || []).map((img, index) => ({
+          id: `img-backend-${index}`,
           url: img.url,
           file: null,
         }));
+
         setPreviewUrls(imageUrls);
       } catch (error) {
         console.error("Gagal fetch data:", error);
@@ -47,7 +82,8 @@ const FormSpmb = () => {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    const previews = files.map((file) => ({
+    const previews = files.map((file, index) => ({
+      id: `img-${Date.now()}-${index}`,
       url: URL.createObjectURL(file),
       file,
     }));
@@ -67,6 +103,7 @@ const FormSpmb = () => {
 
   const removeImage = (index) => {
     const newImages = [...previewUrls];
+
     newImages.splice(index, 1);
     setPreviewUrls(newImages);
   };
@@ -75,7 +112,6 @@ const FormSpmb = () => {
     if (!judul.trim()) return toast.info("Judul masih kosong!");
     if (!iconFile && !iconPreview) return toast.info("Ikon belum dipilih!");
     if (previewUrls.length === 0) return toast.info("Thumbnail belum dipilih!");
-    // if (!konten.trim()) return alert("Konten belum diisi!");
 
     setLoading(true);
     try {
@@ -207,40 +243,27 @@ const FormSpmb = () => {
             />
           </div>
           {previewUrls.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-              {previewUrls.map((img, index) => (
-                <div
-                  key={index}
-                  className="relative group border rounded-xl overflow-hidden shadow"
-                >
-                  <img
-                    src={img.url}
-                    alt={`Preview ${index}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-1 right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition">
-                    <button
-                      onClick={() => moveImage(index, -1)}
-                      className="bg-white p-1 rounded shadow hover:bg-gray-200 text-xs"
-                    >
-                      ⬅
-                    </button>
-                    <button
-                      onClick={() => moveImage(index, 1)}
-                      className="bg-white p-1 rounded shadow hover:bg-gray-200 text-xs"
-                    >
-                      ➡
-                    </button>
-                    <button
-                      onClick={() => removeImage(index)}
-                      className="bg-red-500 text-white p-1 rounded shadow hover:bg-red-600 text-xs"
-                    >
-                      ✕
-                    </button>
-                  </div>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={previewUrls.map((img) => img.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                  {previewUrls.map((img, index) => (
+                    <SortableImageItem
+                      key={img.id}
+                      id={img.id}
+                      img={img}
+                      onRemove={() => removeImage(index)}
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
+              </SortableContext>
+            </DndContext>
           )}
         </div>
 

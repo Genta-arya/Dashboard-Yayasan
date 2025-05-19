@@ -11,10 +11,9 @@ export const SpmbService = async (data) => {
   }
 };
 
-
-export const GetSpmb = async (data) => {
+export const GetSpmb = async (data, id) => {
   try {
-   const response = await axiosInstance.get("/spmb/" + data);
+    const response = await axiosInstance.get(`/spmb/${data}?id=${id}`);
     return response.data;
   } catch (error) {
     throw error;
