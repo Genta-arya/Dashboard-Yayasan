@@ -30,6 +30,7 @@ const FormSpmb = () => {
   const [previewUrls, setPreviewUrls] = useState([]);
   const [iconFile, setIconFile] = useState(null);
   const [iconPreview, setIconPreview] = useState(null);
+  const [status, setStatus] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [konten, setKonten] = useState("");
@@ -58,6 +59,7 @@ const FormSpmb = () => {
         const response = await GetSpmb(type, user.id);
         const data = response?.data;
         if (!data) return;
+        setStatus(data.status ?? false);
 
         setJudul(data.judul || "");
         setKonten(data.konten || "");
@@ -149,6 +151,7 @@ const FormSpmb = () => {
         judul,
         konten,
         type,
+        status,
         header: thumbnailUrl,
         imageUrls: uploadedImages,
         icon_url: iconUrl,
@@ -183,12 +186,31 @@ const FormSpmb = () => {
           />
         </div>
 
+        {/* Toggle Status Aktif */}
+        <div className="bg-white p-4 rounded-2xl shadow space-y-2">
+          <label className="font-semibold flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={status}
+              onChange={() => setStatus(!status)}
+              className="accent-green-500 text-white w-4 h-4"
+            />
+            Aktifkan Status SPMB
+          </label>
+        </div>
+
         {/* Thumbnail */}
         <div className="bg-white p-4 rounded-2xl shadow space-y-2">
           <div className="flex justify-between gap-2 mb-8">
             <label className="font-semibold">Thumbnail</label>
             <input
               type="file"
+              className="mb-4 block text-sm text-green-700
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-green-50 file:text-green-700
+          hover:file:bg-green-100"
               accept="image/*"
               onChange={(e) => {
                 setThumbnail(e.target.files[0]);
@@ -213,6 +235,12 @@ const FormSpmb = () => {
             <label className="font-semibold">Ikon</label>
             <input
               type="file"
+              className="mb-4 block text-sm text-green-700
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-green-50 file:text-green-700
+          hover:file:bg-green-100"
               accept="image/*"
               onChange={(e) => {
                 setIconFile(e.target.files[0]);
@@ -238,6 +266,12 @@ const FormSpmb = () => {
             <input
               type="file"
               accept="image/*"
+              className="mb-4 block text-sm text-green-700
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-green-50 file:text-green-700
+          hover:file:bg-green-100"
               multiple
               onChange={handleFileChange}
             />

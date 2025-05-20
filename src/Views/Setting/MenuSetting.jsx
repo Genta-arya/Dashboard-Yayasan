@@ -19,7 +19,7 @@ const MenuSetting = () => {
       icon: <Image />,
     },
     {
-      name: "Kata Pengantar",
+      name: "Kata Sambutan",
       href: "/setting/kata-pengantar",
       icon: <FileText />,
     },

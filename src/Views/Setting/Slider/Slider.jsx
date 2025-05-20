@@ -23,7 +23,7 @@ import Loading from "@/components/Loading";
 
 const Slider = () => {
   const [slider, setSlider] = useState([]);
- const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -102,7 +102,6 @@ const Slider = () => {
   };
 
   const handleSubmit = async () => {
-     
     if (slider.length === 0) {
       toast.warning("Belum ada gambar yang dipilih.");
       return;
@@ -167,7 +166,7 @@ const Slider = () => {
     }
   };
 
-  if (loading) return <Loading />
+  if (loading) return <Loading />;
 
   return (
     <>
@@ -179,7 +178,12 @@ const Slider = () => {
             accept="image/*"
             multiple
             onChange={handleImageChange}
-            className="mb-2"
+            className="mb-4 block w-full text-sm text-green-700
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-green-50 file:text-green-700
+          hover:file:bg-green-100"
           />
           <p className="text-sm text-gray-600">
             * Maks 5 gambar, resolusi minimal 1200x600, ukuran maksimal
@@ -211,9 +215,9 @@ const Slider = () => {
 
         <button
           onClick={handleSubmit}
-          className="bg-green-800 w-full text-white px-4 py-2 rounded-md hover:bg-green-700"
+          className="bg-green-700 w-full text-white px-4 py-2 rounded-md hover:bg-green-600"
         >
-          Simpan Slider
+          Simpan
         </button>
       </div>
     </>
