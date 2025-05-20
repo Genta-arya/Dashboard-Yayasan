@@ -21,12 +21,15 @@ const Sambutan = () => {
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await getSambutan();
       setKonten(response.data.konten);
       setImageFromApi(response.data.url_Image); // <-- ambil gambar dari API
     } catch (error) {
       console.error("Gagal ambil data sambutan", error);
+    } finally {
+      setLoading(false);
     }
   };
 
