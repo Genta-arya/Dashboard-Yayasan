@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import DOMPurify from "dompurify";
 import { uploadProfile } from "@/Services/Uploads/Uploads.services";
 import useUserStore from "@/lib/AuthZustand";
+import Loading from "@/components/Loading";
 const EditBerita = () => {
   const [loading, setLoading] = useState(true);
   const [currentThumbnail, setCurrentThumbnail] = useState(null);
@@ -150,6 +151,7 @@ const EditBerita = () => {
       setLoading(false);
     }
   };
+  if (loading) return <Loading />;
 
   return (
     <>
