@@ -312,7 +312,7 @@ const EditBerita = () => {
               onChange={handleCategoryChange}
               className="border p-2 w-full rounded-md"
             >
-               <option value="informasi">Informasi</option>
+               <option value="pengumuman">Pengumuman</option>
               <option value="berita">Berita</option>
               <option value="opini">Opini</option>
             </select>

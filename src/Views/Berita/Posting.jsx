@@ -14,7 +14,7 @@ import useUserStore from "@/lib/AuthZustand";
 const Posting = () => {
   const [editorContent, setEditorContent] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
-  const [category, setCategory] = useState("informasi");
+  const [category, setCategory] = useState("pengumuman");
   const [isChecked, setIsChecked] = useState(true);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -113,7 +113,7 @@ const Posting = () => {
       setThumbnail(null);
       setTitle("");
       setAuthor(user?.username);
-      setCategory("berita");
+      setCategory("pengumuman");
     } catch (error) {
       responseHandler(error);
     } finally {
@@ -230,7 +230,7 @@ const Posting = () => {
             onChange={handleCategoryChange}
             className="border p-2 w-full rounded-md"
           >
-           <option value="informasi">Informasi</option>
+           <option value="pengumuman">Informasi</option>
             <option value="berita">Berita</option>
             <option value="opini">Opini</option>
           </select>
