@@ -313,8 +313,7 @@ const EditBerita = () => {
               className="border p-2 w-full rounded-md"
             >
                <option value="pengumuman">Pengumuman</option>
-              <option value="berita">Berita</option>
-              <option value="opini">Opini</option>
+            
             </select>
           </div>
 

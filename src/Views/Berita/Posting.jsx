@@ -18,7 +18,7 @@ const Posting = () => {
   const [isChecked, setIsChecked] = useState(true);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
-    const { user } = useUserStore();
+  const { user } = useUserStore();
   const [author, setAuthor] = useState(user?.username);
   const handleThumbnailChange = (e) => {
     const file = e.target.files[0];
@@ -230,9 +230,7 @@ const Posting = () => {
             onChange={handleCategoryChange}
             className="border p-2 w-full rounded-md"
           >
-           <option value="pengumuman">Informasi</option>
-            <option value="berita">Berita</option>
-            <option value="opini">Opini</option>
+            <option value="pengumuman">Informasi</option>
           </select>
         </div>
 
