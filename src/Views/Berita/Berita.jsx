@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import useUserStore from "@/lib/AuthZustand";
 import { responseHandler } from "@/lib/utils";
 import { DeleteBerita, GetBerita } from "@/Services/Berita/Berita.services";
-import { Plus, Search } from "lucide-react";
+import { Pencil, Plus, Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -34,10 +34,10 @@ const Berita = () => {
     fetchData();
   }, []);
 
-  const DeleteData = async(id) => {
+  const DeleteData = async (id) => {
     setLoading(true);
     try {
-       await DeleteBerita(id);
+      await DeleteBerita(id);
       toast.success("Postingan berhasil dihapus.");
       fetchData();
     } catch (error) {
@@ -46,17 +46,17 @@ const Berita = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-if (loading) {
-  return (
-    <div className="px-4 pt-4 space-y-4">
-      {Array.from({ length: 9 }).map((_, i) => (
-        <BeritaSkeleton key={i} />
-      ))}
-    </div>
-  );
-}
+  if (loading) {
+    return (
+      <div className="px-4 pt-4 space-y-4">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <BeritaSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
 
   const filteredBerita = berita.filter((item) =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -65,17 +65,31 @@ if (loading) {
   return (
     <>
       <div className="px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <Button
-          onClick={() => {
-            navigate("/berita/posting");
-          }}
-          className="bg-green-300 hover:bg-green-400 text-black w-32 h-8 text-sm rounded-md"
-        >
-          <div className="flex gap-2 items-center">
-            <Plus />
-            <p>Posting</p>
-          </div>
-        </Button>
+        <div className="flex gap-2 items-center">
+          <Button
+            onClick={() => {
+              navigate("/berita/posting");
+            }}
+            className="bg-green-300 hover:bg-green-400 text-black w-32 h-8 text-sm rounded-md"
+          >
+            <div className="flex gap-2 items-center">
+              <Plus />
+              <p>Posting</p>
+            </div>
+          </Button>
+          <Button
+            onClick={() => {
+              window.location.href =
+                "https://media.aljihadketapang.sch.id/wp-login.php?redirect_to=https%3A%2F%2Fmedia.aljihadketapang.sch.id%2Fwp-admin%2F&reauth=1";
+            }}
+            className="bg-green-300 hover:bg-green-400 text-black w-32 h-8 text-sm rounded-md"
+          >
+            <div className="flex gap-2 items-center">
+              <Pencil />
+              <p>Kelola Media</p>
+            </div>
+          </Button>
+        </div>
 
         {/* Input Search dengan Icon */}
         <div className="relative w-full sm:w-64">
@@ -92,7 +106,9 @@ if (loading) {
 
       <div className="px-4 pt-4 space-y-4">
         {filteredBerita.length === 0 ? (
-          <p className="text-gray-500 text-center mt-20">Berita tidak ditemukan.</p>
+          <p className="text-gray-500 text-center mt-20">
+            Berita tidak ditemukan.
+          </p>
         ) : (
           filteredBerita.map((item) => (
             <div
@@ -113,7 +129,11 @@ if (loading) {
                   Oleh {item.author} •{" "}
                   {new Date(item.createdAt).toLocaleDateString("id-ID")}
                 </p>
-                <ArsipSwitch id={item.id} isArsip={item.isArsip} onUpdate={fetchData} />
+                <ArsipSwitch
+                  id={item.id}
+                  isArsip={item.isArsip}
+                  onUpdate={fetchData}
+                />
               </div>
 
               {/* Tombol Edit & Hapus */}
@@ -126,7 +146,7 @@ if (loading) {
                 </button>
                 <button
                   className="text-sm w-20 py-1 rounded bg-red-500 text-white hover:bg-red-600"
-                  onClick={() =>DeleteData(item.id)}
+                  onClick={() => DeleteData(item.id)}
                 >
                   Hapus
                 </button>
