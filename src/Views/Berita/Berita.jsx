@@ -96,7 +96,7 @@ const Berita = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input
             type="text"
-            placeholder="Cari judul berita..."
+            placeholder="Cari judul ..."
             className="pl-9 pr-3 py-1.5 border outline-none border-gray-300 rounded-md text-sm w-full focus:outline-none "
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -107,7 +107,7 @@ const Berita = () => {
       <div className="px-4 pt-4 space-y-4">
         {filteredBerita.length === 0 ? (
           <p className="text-gray-500 text-center mt-20">
-            Berita tidak ditemukan.
+            Data tidak ditemukan.
           </p>
         ) : (
           filteredBerita.map((item) => (
