@@ -16,6 +16,7 @@ import FormSpmb from "./Views/Setting/SPMB/Form-Spmb";
 import Slider from "./Views/Setting/Slider/Slider";
 import Sambutan from "./Views/Setting/Sambutan/Sambutan";
 import UnitPendidikan from "./Views/Setting/UnitPendidikan/UnitPendidikan";
+import Gallery from "./Views/Setting/Gallery/Gallery";
 
 const RouteApp = () => {
   return (
@@ -32,8 +33,9 @@ const RouteApp = () => {
           <Route path="/setting/website" element={<Setting />} />
           <Route path="/setting/slider" element={<Slider />} />
           <Route path="/setting/kata-pengantar" element={<Sambutan />} />
-          <Route path="/setting/unit-pendidikan" element={<UnitPendidikan/>} />
+          <Route path="/setting/unit-pendidikan" element={<UnitPendidikan />} />
           <Route path="/setting/spmb/:type" element={<FormSpmb />} />
+          <Route path="/setting/gallery" element={<Gallery />} />
         </Route>
         <Route path="*" element={<HalamanNotFound />} />
       </Routes>
