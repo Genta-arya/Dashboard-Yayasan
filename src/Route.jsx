@@ -17,6 +17,9 @@ import Slider from "./Views/Setting/Slider/Slider";
 import Sambutan from "./Views/Setting/Sambutan/Sambutan";
 import UnitPendidikan from "./Views/Setting/UnitPendidikan/UnitPendidikan";
 import Gallery from "./Views/Setting/Gallery/Gallery";
+import TentangKamiSetting from "./Views/Setting/Profiles/TentangKamiSetting";
+import SejarahSetting from "./Views/Setting/Profiles/SejarahSetting";
+import VisiMisiSetting from "./Views/Setting/Profiles/VisiMisiSetting";
 
 const RouteApp = () => {
   return (
@@ -36,6 +39,9 @@ const RouteApp = () => {
           <Route path="/setting/unit-pendidikan" element={<UnitPendidikan />} />
           <Route path="/setting/spmb/:type" element={<FormSpmb />} />
           <Route path="/setting/gallery" element={<Gallery />} />
+           <Route path="/setting/profil/tentang-kami" element={<TentangKamiSetting />} />
+            <Route path="/setting/profil/sejarah" element={<SejarahSetting />} />
+             <Route path="/setting/profil/visi-misi" element={<VisiMisiSetting />} />
         </Route>
         <Route path="*" element={<HalamanNotFound />} />
       </Routes>
@@ -43,12 +49,17 @@ const RouteApp = () => {
     </Router>
   );
 };
-
-//  { name: "Ponpes", href: "/setting/spmb/ponpes" },
-//     { name: "SMP", href: "/setting/spmb/smp" },
-//     { name: "SMA", href: "/setting/spmb/sma" },
-//     { name: "PAUD", href: "/setting/spmb/paud" },
-//     { name: "MDT", href: "/setting/spmb/mdt" },
-//     { name: "TPQ", href: "/setting/spmb/tpq" },
+//  {
+//       name: "Tentang Kami",
+//       href: "/setting/profil/tentang-kami",
+//     },
+//     {
+//       name: "Sejarah",
+//       href: "/setting/profil/sejarah",
+//     },
+//     {
+//       name: "Visi Misi",
+//       href: "/setting/profil/visi-misi",
+//     },
 
 export default RouteApp;

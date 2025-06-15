@@ -18,12 +18,13 @@ import {
   Image,
   Paperclip,
   LetterText,
+  Archive,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 const menus = [
   { label: "Dashboard", icon: <Home />, href: "/" },
   { label: "Berita", icon: <LetterText />, href: "/berita" },
-  { label: "Profil", icon: <User />, href: "/profile" },
+  { label: "Arsip", icon: <Archive />, href: "/arsip" },
   { label: "Pengaturan Website", icon: <Settings />, href: "/setting/website" },
 ];
 const SidebarMenus = () => {
