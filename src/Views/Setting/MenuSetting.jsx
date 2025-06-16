@@ -36,10 +36,7 @@ const MenuSetting = () => {
   ];
 
   const profilSubmenu = [
-    {
-      name: "Tentang Kami",
-      href: "/setting/profil/tentang-kami",
-    },
+  
     {
       name: "Sejarah",
       href: "/setting/profil/sejarah",

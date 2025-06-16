@@ -39,7 +39,7 @@ const RouteApp = () => {
           <Route path="/setting/unit-pendidikan" element={<UnitPendidikan />} />
           <Route path="/setting/spmb/:type" element={<FormSpmb />} />
           <Route path="/setting/gallery" element={<Gallery />} />
-           <Route path="/setting/profil/tentang-kami" element={<TentangKamiSetting />} />
+          
             <Route path="/setting/profil/sejarah" element={<SejarahSetting />} />
              <Route path="/setting/profil/visi-misi" element={<VisiMisiSetting />} />
         </Route>
